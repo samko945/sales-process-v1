@@ -1,0 +1,54 @@
+const brokerSchema = {
+	_id: 1,
+	name: "Office Freedom",
+	consultants: [
+		{
+            id_: 1002,
+			name: "Bob Toor",
+			email: "bob@officefreedom.com",
+			phone: "02038727121"
+		},
+	],
+};
+
+const leadSchema = {
+	_id: 1,
+    lead_no: 1872,
+	company: "Habitual Media",
+    contact: {
+        name: "Nick Forster",
+        email: "",
+        phone: ""
+    },
+    requirements: {
+        location: "Shoreditch",
+        size: {
+            desks_min: 6,
+            desks_max: 8,
+            sqft_min: "",
+            sqft_max: ""
+        },
+        term_duration_months: 12,
+        term_start: "08/2021"
+    },
+    brokers: [
+        {
+            company_id: 1,
+            consultant_id: 1002
+        },
+        {
+            company: "Office Freedom",
+            consultant: "Bob Toor"
+        }
+    ],
+    viewings: [
+        {
+            date: "12/06/2021",
+            time: "13:15",
+            status: "scheduled/complete/cancelled",
+            broker_company: "",
+            broker_consultant: "",
+            notes: ""
+        }
+    ]
+};

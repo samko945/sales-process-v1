@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Brokers | new consultant</title>
+	</head>
+	<body>
+        <h1>Register New Consultant</h1>
+		<form action="/new-consultant" method="POST">
+			<select name="brokerId" required>
+				<option value="" selected hidden disabled>Select Broker</option>
+				<% brokers.forEach(broker => { %>
+				<option value="<%= broker.id %>"><%= broker.name %></option>
+				<% }) %>
+			</select>
+			<br />
+			<div>
+				<h3>Consultant</h3>
+				<label for="consultant-name">Name</label>
+				<input type="text" id="consultant-name" name="consultantName" required/>
+				<br />
+				<label for="consultant-email">Email</label>
+				<input type="text" id="consultant-email" name="consultantEmail" />
+				<br />
+				<label for="consultant-phone">Phone</label>
+				<input type="text" id="consultant-phone" name="consultantPhone" />
+			</div>
+			<br />
+			<button type="submit">Submit</button>
+		</form>
+	</body>
+</html>
