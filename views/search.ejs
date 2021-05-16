@@ -17,10 +17,10 @@
 				<button type="submit" class="btn btn-outline-success">Search</button>
 			</form>
 
-			<ul>
+			<ul class="search-results">
 				<% if (typeof (results) != "undefined") { %>
 					<% results.forEach(result => { %>
-						<li>
+						<li class="rounded">
 						<%= result.name %>
 						<% if (typeof (result.consultants) != "undefined") { %>
 							<% result.consultants.forEach(consultant => { %>
