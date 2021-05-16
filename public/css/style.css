@@ -1,7 +1,24 @@
-form * {
-    padding: 0.5rem;
-}
+
 
 body {
-    background-color: aqua;
+    background-color: #dce8eb;
+}
+
+main {
+    margin: 1rem;
+}
+
+h1 {
+    text-align: center;
+    margin-bottom: 2rem;
+}
+
+form {
+    margin: 1rem;
+    max-width: 20rem;
+    margin: 0 auto;
+}
+
+form label {
+    margin: 0;
 }

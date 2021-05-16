@@ -5,30 +5,39 @@
 		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 		<title>Brokers | new consultant</title>
+		<link rel="stylesheet" href="/css/normalize.css" />
+		<link rel="stylesheet" href="/css/bootstrap.css" />
+		<link rel="stylesheet" href="/css/style.css" />
 	</head>
 	<body>
-        <h1>Register New Consultant</h1>
-		<form action="/new-consultant" method="POST">
-			<select name="brokerId" required>
-				<option value="" selected hidden disabled>Select Broker</option>
-				<% brokers.forEach(broker => { %>
-				<option value="<%= broker.id %>"><%= broker.name %></option>
-				<% }) %>
-			</select>
-			<br />
-			<div>
+		<%- include("partials/nav") %>
+		<main>
+			<h1>REGISTER NEW CONSULTANT</h1>
+			<form action="/new-consultant" method="POST">
+				<h3>Broker</h3>
+				<div class="form-group">
+					<select name="brokerId" class="custom-select" required>
+						<option value="" selected hidden disabled>Select Broker</option>
+						<% brokers.forEach(broker => { %>
+						<option value="<%= broker.id %>"><%= broker.name %></option>
+						<% }) %>
+					</select>
+				</div>
 				<h3>Consultant</h3>
-				<label for="consultant-name">Name</label>
-				<input type="text" id="consultant-name" name="consultantName" required/>
-				<br />
-				<label for="consultant-email">Email</label>
-				<input type="text" id="consultant-email" name="consultantEmail" />
-				<br />
-				<label for="consultant-phone">Phone</label>
-				<input type="text" id="consultant-phone" name="consultantPhone" />
-			</div>
-			<br />
-			<button type="submit">Submit</button>
-		</form>
+				<div class="form-group">
+					<label for="consultant-name">Name</label>
+					<input type="text" id="consultant-name" name="consultantName" class="form-control" required />
+				</div>
+				<div class="form-group">
+					<label for="consultant-email">Email</label>
+					<input type="text" id="consultant-email" name="consultantEmail" class="form-control" />
+				</div>
+				<div class="form-group">
+					<label for="consultant-phone">Phone</label>
+					<input type="tel" id="consultant-phone" name="consultantPhone" class="form-control" />
+				</div>
+				<div class="form-group"><button type="submit" class="btn btn-outline-dark">Submit</button></div>
+			</form>
+		</main>
 	</body>
 </html>

@@ -5,16 +5,17 @@
 		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 		<title>Brokers</title>
-        <link rel="stylesheet" href="/css/style.css">
+		<link rel="stylesheet" href="/css/normalize.css" />
+		<link rel="stylesheet" href="/css/bootstrap.css" />
+		<link rel="stylesheet" href="/css/style.css" />
 	</head>
 	<body>
-		<form action="/" method="POST">
-			<input type="text" name="search" autofocus autocomplete="off" />
-            <button type="submit">Search</button>
+        <%- include("partials/nav") %>
+		<main>
+            <form action="/" method="POST" class="form-inline">
+			<input type="search" name="search" class="form-control mr-sm-2" placeholder="Search" autofocus autocomplete="off" />
+			<button type="submit" class="btn btn-outline-success">Search</button>
 		</form>
-		<ul>
-			<li><a href="/new-broker">New Broker</a></li>
-			<li><a href="/new-consultant">New Consultant</a></li>
-		</ul>
+        </main>
 	</body>
 </html>

@@ -31,23 +31,23 @@ app.post("/", async function (req, res) {
 	const searchRegex = new RegExp(searchWords.join("|"));
 	console.log(searchRegex);
 	const searchResults = [];
-	await Broker.find({ name: { $regex: searchRegex, $options: "i" } }, function (err, doc) {
-		if (doc) {
-			doc.forEach((doc) => {
-				searchResults.push(doc._id);
-			});
+	await Broker.find(
+		{
+			$or: [
+				{ name: { $regex: searchRegex, $options: "i" } }, // i for case insensitive
+				{ "consultants.name": { $regex: searchRegex, $options: "i" } },
+			],
+		},
+		function (err, doc) {
+			if (doc) {
+				doc.forEach((doc) => {
+					if (!searchResults.indexOf(doc._id) > -1) {
+						searchResults.push(doc._id);
+					}
+				});
+			}
 		}
-	}); // i for case insensitive
-	let consultantResults;
-	await Broker.find({ "consultants.name": { $regex: searchRegex, $options: "i" } }, function (err, doc) {
-		if (doc) {
-			doc.forEach((doc) => {
-				if (searchResults.indexOf(doc._id) > -1) {
-					searchResults.push(doc._id);
-				}
-			});
-		}
-	});
+	).catch((err) => console.error(err));
 	console.log(searchResults);
 	res.redirect("/");
 });
