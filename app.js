@@ -22,16 +22,13 @@ const brokerSchema = new mongoose.Schema({
 const Broker = new mongoose.model("Broker", brokerSchema);
 
 app.get("/", function (req, res) {
-	res.render("home");
+	res.render("search");
 });
 
-app.post("/", async function (req, res) {
-	const searchText = req.body.search;
-	const searchWords = searchText.split(" ");
+app.get("/results/:searchText", function (req, res) {
+	const searchWords = req.params.searchText.split(" ");
 	const searchRegex = new RegExp(searchWords.join("|"));
-	console.log(searchRegex);
-	const searchResults = [];
-	await Broker.find(
+	Broker.find(
 		{
 			$or: [
 				{ name: { $regex: searchRegex, $options: "i" } }, // i for case insensitive
@@ -40,16 +37,35 @@ app.post("/", async function (req, res) {
 		},
 		function (err, doc) {
 			if (doc) {
+				// const resultsOrder = [];
 				doc.forEach((doc) => {
-					if (!searchResults.indexOf(doc._id) > -1) {
-						searchResults.push(doc._id);
-					}
+					const docString = JSON.stringify(doc);
+					const fullRE = new RegExp(searchWords.join("|"), "gi");
+					const matches = docString.match(fullRE);
+                    // add up all found characters as basis for best match
+					doc.matches = matches.join("").length;
 				});
+                
+                doc.sort((a, b) => {
+                    if (a.matches > b.matches) {
+                        return -1;
+                    } else {
+                        return 1;
+                    }
+                })
+                
+                res.render("search", {results: doc})
+
+			} else {
+				res.redirect("/");
 			}
 		}
 	).catch((err) => console.error(err));
-	console.log(searchResults);
-	res.redirect("/");
+});
+
+app.post("/", function (req, res) {
+	const searchText = req.body.search;
+	res.redirect(`/results/${searchText}`);
 });
 
 app.get("/new-broker", function (req, res) {
