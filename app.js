@@ -37,7 +37,6 @@ app.get("/results/:searchText", function (req, res) {
 		},
 		function (err, doc) {
 			if (doc) {
-				// const resultsOrder = [];
 				doc.forEach((doc) => {
 					const docString = JSON.stringify(doc);
 					const fullRE = new RegExp(searchWords.join("|"), "gi");
@@ -53,7 +52,7 @@ app.get("/results/:searchText", function (req, res) {
                         return 1;
                     }
                 })
-                
+
                 res.render("search", {results: doc})
 
 			} else {

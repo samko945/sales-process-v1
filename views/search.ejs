@@ -13,7 +13,7 @@
 		<%- include("partials/nav") %>
 		<main>
 			<form action="/" method="POST" class="form-inline">
-				<input type="search" name="search" class="form-control mr-sm-2" placeholder="Search" autofocus autocomplete="off" />
+				<input type="search" name="search" class="form-control mr-sm-2" placeholder="Search" required autofocus autocomplete="off" />
 				<button type="submit" class="btn btn-outline-success">Search</button>
 			</form>
 
@@ -21,10 +21,10 @@
 				<% if (typeof (results) != "undefined") { %>
 					<% results.forEach(result => { %>
 						<li class="rounded">
-						<%= result.name %>
+						<span class="search-results--broker-name"><%= result.name %>:</span>
 						<% if (typeof (result.consultants) != "undefined") { %>
 							<% result.consultants.forEach(consultant => { %>
-								<%= consultant.name %>
+								<span class="search-results--consultant-name"><%= consultant.name %></span>
 							<% }) %>
 						<% } %>
 						</li>
