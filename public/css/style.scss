@@ -1,5 +1,5 @@
 body {
-	background-color: #dce8eb;
+	background-color: #dde5e9;
 }
 
 main {
@@ -7,8 +7,8 @@ main {
 }
 
 h1 {
-    font-weight: 700;
-    color: #b3adad;
+	font-weight: 700;
+	color: #b3adad;
 	text-align: center;
 	margin-bottom: 2rem;
 }
@@ -24,29 +24,71 @@ form label {
 }
 
 .search-results {
-    padding: 0;
+	padding: 0;
 	max-width: 30rem;
 	margin: 0 auto;
-    list-style: none;
+	list-style: none;
+}
+
+.search-results--link {
+	text-decoration: none !important;
 }
 
 .search-results li {
-    padding: 0.5rem 1rem;
-    margin: 1rem;
-    background-color: #f8f9fa;
+	padding: 0.5rem 1rem;
+	margin: 1rem;
+	background-color: #f8f9fa;
+	border: 1px solid #d4d4d4;
+}
+
+.search-results li:hover {
+	background-color: #fff;
+	cursor: pointer;
 }
 
 .search-results--broker-name {
-    font-weight: 600;
-    color: #1b1b1b;
-    
+	font-weight: 600;
+	color: #1b1b1b;
 }
 .search-results--consultant-name {
-    color: #3b3b3b;
-    white-space: nowrap;
+	color: #3b3b3b;
+	white-space: nowrap;
 }
 .search-results--consultant-name:not(:last-child)::after {
-    content: ',';
+	content: ",";
 }
 
-
+.consultant-list {
+	list-style: none;
+	max-width: 30rem;
+	margin: 0 auto;
+	li {
+		margin: 1rem 0;
+		padding: 0.5rem 1rem;
+		background-color: #f8f9fa;
+		border: 1px solid #d4d4d4;
+		position: relative;
+		.consultant-list-item--edit {
+			position: absolute;
+			top: 0;
+			right: 0;
+			padding: 0.25rem 0.5rem;
+			font-weight: 300;
+			color: #bdbdbd;
+			opacity: 0;
+            transition: ease-out 0.2s;
+		}
+		&:hover .consultant-list-item--edit {
+			opacity: 1;
+            cursor: pointer;
+            &:hover {
+                color: #4b4b4b;
+            }
+		}
+	}
+	h4,
+	p {
+		padding: 0;
+		margin: 0;
+	}
+}

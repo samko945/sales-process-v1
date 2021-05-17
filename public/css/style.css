@@ -1,5 +1,5 @@
 body {
-  background-color: #dce8eb;
+  background-color: #dde5e9;
 }
 
 main {
@@ -30,10 +30,20 @@ form label {
   list-style: none;
 }
 
+.search-results--link {
+  text-decoration: none !important;
+}
+
 .search-results li {
   padding: 0.5rem 1rem;
   margin: 1rem;
   background-color: #f8f9fa;
+  border: 1px solid #d4d4d4;
+}
+
+.search-results li:hover {
+  background-color: #fff;
+  cursor: pointer;
 }
 
 .search-results--broker-name {
@@ -47,6 +57,47 @@ form label {
 }
 
 .search-results--consultant-name:not(:last-child)::after {
-  content: ',';
+  content: ",";
+}
+
+.consultant-list {
+  list-style: none;
+  max-width: 30rem;
+  margin: 0 auto;
+}
+
+.consultant-list li {
+  margin: 1rem 0;
+  padding: 0.5rem 1rem;
+  background-color: #f8f9fa;
+  border: 1px solid #d4d4d4;
+  position: relative;
+}
+
+.consultant-list li .consultant-list-item--edit {
+  position: absolute;
+  top: 0;
+  right: 0;
+  padding: 0.25rem 0.5rem;
+  font-weight: 300;
+  color: #bdbdbd;
+  opacity: 0;
+  -webkit-transition: ease-out 0.2s;
+  transition: ease-out 0.2s;
+}
+
+.consultant-list li:hover .consultant-list-item--edit {
+  opacity: 1;
+  cursor: pointer;
+}
+
+.consultant-list li:hover .consultant-list-item--edit:hover {
+  color: #4b4b4b;
+}
+
+.consultant-list h4,
+.consultant-list p {
+  padding: 0;
+  margin: 0;
 }
 /*# sourceMappingURL=style.css.map */

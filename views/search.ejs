@@ -20,6 +20,7 @@
 			<ul class="search-results">
 				<% if (typeof (results) != "undefined") { %>
 					<% results.forEach(result => { %>
+						<a href="/brokers/<%= result.name %>" class="search-results--link">
 						<li class="rounded">
 						<span class="search-results--broker-name"><%= result.name %>:</span>
 						<% if (typeof (result.consultants) != "undefined") { %>
@@ -28,6 +29,7 @@
 							<% }) %>
 						<% } %>
 						</li>
+						</a>
 					<% }) %>
 				<% } %>
 			</ul>

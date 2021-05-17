@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Brokers</title>
+		<link rel="stylesheet" href="/css/normalize.css" />
+		<link rel="stylesheet" href="/css/bootstrap.css" />
+		<link rel="stylesheet" href="/css/style.css" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+	</head>
+	<body>
+		<%- include("partials/nav") %>
+		<main>
+            <h1><%= broker.name %></h1>
+            <ul class="consultant-list">
+            <% broker.consultants.forEach(consultant => { %>
+                <li>
+                    <a href="/edit/<%= consultant._id %>" class="consultant-list-item--edit"><i class="fas fa-edit"></i></a>
+                    <h4><%= consultant.name %></h4>
+                    <p><%= consultant.email || "---" %></p>
+                    <p><%= consultant.phone || "---" %></p>
+                </li>
+            <% }) %>
+            </ul>
+
+            
+		</main>
+	</body>
+</html>

@@ -1,5 +1,6 @@
 const express = require("express");
 const mongoose = require("mongoose");
+const _ = require("lodash");
 
 const app = express();
 mongoose.connect("mongodb://localhost:27017/practiceDB", { useNewUrlParser: true, useUnifiedTopology: true });
@@ -25,6 +26,11 @@ app.get("/", function (req, res) {
 	res.render("search");
 });
 
+app.post("/", function (req, res) {
+	const searchText = req.body.search;
+	res.redirect(`/results/${searchText}`);
+});
+
 app.get("/results/:searchText", function (req, res) {
 	const searchWords = req.params.searchText.split(" ");
 	const searchRegex = new RegExp(searchWords.join("|"));
@@ -41,20 +47,19 @@ app.get("/results/:searchText", function (req, res) {
 					const docString = JSON.stringify(doc);
 					const fullRE = new RegExp(searchWords.join("|"), "gi");
 					const matches = docString.match(fullRE);
-                    // add up all found characters as basis for best match
+					// add up all found characters as basis for best match
 					doc.matches = matches.join("").length;
 				});
-                
-                doc.sort((a, b) => {
-                    if (a.matches > b.matches) {
-                        return -1;
-                    } else {
-                        return 1;
-                    }
-                })
 
-                res.render("search", {results: doc})
+				doc.sort((a, b) => {
+					if (a.matches > b.matches) {
+						return -1;
+					} else {
+						return 1;
+					}
+				});
 
+				res.render("search", { results: doc });
 			} else {
 				res.redirect("/");
 			}
@@ -62,9 +67,16 @@ app.get("/results/:searchText", function (req, res) {
 	).catch((err) => console.error(err));
 });
 
-app.post("/", function (req, res) {
-	const searchText = req.body.search;
-	res.redirect(`/results/${searchText}`);
+app.get("/brokers/:brokerName", function (req, res) {
+	const query = req.params.brokerName;
+	Broker.findOne({ name: { $regex: query, $options: "i" } }, function (err, doc) {
+		if (doc) {
+			console.log(doc);
+			res.render("broker", { broker: doc });
+		} else {
+			res.redirect("/");
+		}
+	});
 });
 
 app.get("/new-broker", function (req, res) {
@@ -81,7 +93,7 @@ app.post("/new-broker", function (req, res) {
 			});
 			newBroker.save();
 			console.log(`New broker added: ${newBroker.name}`);
-			res.redirect("/");
+			res.redirect("/new-broker");
 		}
 	}).catch((err) => console.error(err));
 });
@@ -103,8 +115,40 @@ app.post("/new-consultant", function (req, res) {
 		foundBroker.consultants.push(newConsultant);
 		foundBroker.save();
 		console.log(`Added ${newConsultant.name} to ${foundBroker.name}.`);
-		res.redirect("/");
+		res.redirect("/new-consultant");
 	}).catch((err) => console.error(err));
+});
+
+app.get("/edit/:consultantId", function (req, res) {
+	const consultantId = req.params.consultantId;
+	Broker.findOne(
+		{
+			"consultants._id": consultantId,
+		},
+		function (err, doc) {
+			doc.consultants.forEach((consultant) => {
+				if (consultant._id == consultantId) {
+					res.render("edit-consultant", { brokerName: doc.name, consultant: consultant });
+				}
+			});
+		}
+	);
+});
+
+app.post("/edit/:consultantId", function (req, res) {
+	const consultantId = req.params.consultantId;
+	console.log(req.body);
+	Broker.findOneAndUpdate(
+		{
+			"consultants._id": consultantId,
+		},
+		{
+			$set: { "consultants.$.name": req.body.newName },
+		},
+		function (err, doc) {
+			res.redirect(`/brokers/${req.body.brokerName}`);
+		}
+	);
 });
 
 app.listen(3000, function () {

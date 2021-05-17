@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Brokers | new consultant</title>
+		<link rel="stylesheet" href="/css/normalize.css" />
+		<link rel="stylesheet" href="/css/bootstrap.css" />
+		<link rel="stylesheet" href="/css/style.css" />
+	</head>
+	<body>
+		<%- include("partials/nav") %>
+		<main>
+			<h1>UPDATE CONSULTANT</h1>
+			<form action="/edit/<%= consultant._id %>" method="POST">
+				<div class="form-group">
+					<label for="consultant-name">Name</label>
+					<input type="text" id="consultant-name" name="newName" class="form-control" value="<%= consultant.name %>" required />
+				</div>
+				<div class="form-group">
+					<label for="consultant-email">Email</label>
+					<input type="text" id="consultant-email" name="newEmail" class="form-control" value="<%= consultant.email %>"/>
+				</div>
+				<div class="form-group">
+					<label for="consultant-phone">Phone</label>
+					<input type="tel" id="consultant-phone" name="newPhone" class="form-control" value="<%= consultant.phone %>"/>
+				</div>
+				<div class="form-group"><button type="submit" class="btn btn-outline-dark" name="brokerName" value="<%= brokerName %>">Save Changes</button></div>
+			</form>
+		</main>
+	</body>
+</html>
